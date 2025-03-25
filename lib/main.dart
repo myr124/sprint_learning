@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) => SafeArea(child: child as Widget),
       debugShowCheckedModeBanner: false,
       home: Firstpage(),
       theme: ThemeData(
