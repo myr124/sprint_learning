@@ -5,10 +5,16 @@ import 'package:sprint_learning/pages/homepage.dart';
 import 'package:sprint_learning/pages/loadingpage.dart';
 import 'package:sprint_learning/pages/secondpage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  OpenAI.apiKey =
-      "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";
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    print("Error loading .env file: $e");
+  }
+  OpenAI.apiKey = dotenv.env['API']!;
   runApp(MyApp());
 }
 
