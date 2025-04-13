@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sprint_learning/pages/secondpage.dart';
 
-class Firstpage extends StatelessWidget {
-  const Firstpage({Key? key}) : super(key: key);
+class Firstpage extends StatefulWidget {
+  const Firstpage({super.key});
+
+  @override
+  State<Firstpage> createState() => _FirstpageState();
+}
+
+class _FirstpageState extends State<Firstpage> {
+  String? selectedItem = "Middle School";
+
+  List<DropdownMenuEntry<String>> entries = [
+    DropdownMenuEntry(value: "Middle School", label: "Middle School"),
+    DropdownMenuEntry(value: "High School", label: "High School"),
+    DropdownMenuEntry(value: "Higher Ed", label: "Higher Ed"),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(130, 0, 0, 0),
       drawer: Drawer(),
       body: Container(
         child: Column(
@@ -35,23 +47,26 @@ class Firstpage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Education Level",
-                ),
-                style: TextStyle(fontFamily: "Inter", fontSize: 32),
+
+              child: DropdownMenu(
+                width: MediaQuery.of(context).size.width,
+                initialSelection: entries[0].value,
+                dropdownMenuEntries: entries,
+                onSelected:
+                    (value) => setState(() {
+                      selectedItem = value;
+                    }),
+                textStyle: TextStyle(fontFamily: "Inter", fontSize: 32),
               ),
             ),
+
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: OutlinedButton(
                 style: ButtonStyle(),
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Secondpage()),
-                  );
+                  Navigator.pushNamed(context, '/secondpage');
                 },
                 child: Icon(Icons.forward_outlined, size: 70),
               ),
